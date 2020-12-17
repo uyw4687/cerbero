@@ -1,0 +1,58 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+import shutil
+from cerbero.utils import to_unixpath
+
+class Recipe(recipe.Recipe):
+    name = 'nnstreamer'
+    version = '1.6.0'
+    licenses = [License.LGPLv2_1Plus]
+    remotes = {'origin': 'https://github.com/berry95/nnstreamer.git'}
+    commit = 'origin/main'
+    deps = ['gstreamer-1.0', 'gst-plugins-bad-1.0', 'gobject-introspection']
+    btype = BuildType.MESON
+
+    meson_options = {
+                     'tf-support': 'disabled',
+                     'tflite-support': 'disabled',
+                     'tflite2-support': 'disabled',
+                     'pytorch-support': 'disabled',
+                     'caffe2-support': 'disabled'}
+
+    # can be regrouped by functionality
+    files_plugins_gst = [
+	     'etc/nnstreamer.ini',
+             'lib/gstreamer-1.0/libnnstreamer%(mext)s',
+             'lib/gstreamer-1.0/libgstjoin%(mext)s'
+    ]
+
+    files_plugins_gst_devel = [
+             'include/nnstreamer',
+	     'lib/pkgconfig/nnstreamer.pc',
+    ]
+
+    files_plugins_ext = [
+             'lib/nnstreamer/decoders/libnnstreamer_decoder_direct_video%(mext)s',
+             'lib/nnstreamer/decoders/libnnstreamer_decoder_bounding_boxes%(mext)s',
+             'lib/nnstreamer/decoders/libnnstreamer_decoder_image_labeling%(mext)s',
+             'lib/nnstreamer/decoders/libnnstreamer_decoder_image_segment%(mext)s',
+             'lib/nnstreamer/decoders/libnnstreamer_decoder_pose_estimation%(mext)s',
+             'lib/nnstreamer/filters/libnnstreamer_filter_cpp%(mext)s',
+    ]
+
+    files_plugins_ext_devel = [
+	     'lib/pkgconfig/nnstreamer-cpp.pc',
+             'lib/libnnstreamer_decoder_direct_video.a',
+             'lib/libnnstreamer_decoder_image_labeling.a',
+             'lib/libnnstreamer_decoder_bounding_boxes.a',
+             'lib/libnnstreamer_decoder_pose_estimation.a',
+             'lib/libnnstreamer_decoder_image_segment.a',
+    ]
+
+    files_plugins_api = [
+             'lib/libcapi-nnstreamer%(mext)s'
+    ]
+
+    files_plugins_api_devel = [
+             'lib/libcapi-nnstreamer.a',
+     	     'lib/pkgconfig/capi-nnstreamer.pc'
+    ]

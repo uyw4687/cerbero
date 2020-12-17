@@ -1,0 +1,20 @@
+# vi:si:et:sw=4:sts=4:ts=4:syntax=python
+# -*- Mode: Python -*-
+
+
+class Package(custom.GStreamer, package.Package):
+
+    name = 'nnstreamer'
+    shortdesc = 'NNStreamer'
+    longdesc = 'NNStreamer'
+    uuid = '2400a263-1c84-4b49-8ff5-521a44f85444'
+    deps = ['gstreamer-1.0-core']
+
+    files = ['nnstreamer:plugins_gst', 
+            'nnstreamer:plugins_ext',
+            'nnstreamer:plugins_api']
+
+    files_devel = ['nnstreamer:plugins_gst_devel',
+            'nnstreamer:plugins_ext_devel',
+            'nnstreamer:plugins_api_devel']
+
